@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(#ffb6c1, #ffc0cb);
+        font-family: 'Comic Sans MS', cursive;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* BIG QUESTION */
+    #question {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 34px;
+        color: #b30059;
+        font-weight: bold;
+        text-shadow: 2px 2px 6px rgba(255,255,255,0.6);
+    }
+
+    #container {
+        text-align: center;
+    }
+
+    button {
+        padding: 14px 26px;
+        font-size: 18px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    #yesBtn {
+        background: #ff4d88;
+        color: white;
+        margin-right: 12px;
+    }
+
+    #noBtn {
+        background: #ff99bb;
+        color: white;
+        position: absolute;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        color: rgba(255, 0, 100, 0.6);
+        animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(100vh) scale(1); opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti {
+        position: absolute;
+        width: 8px;
+        height: 14px;
+        animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Love screen */
+    #loveScreen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #loveScreen h1 {
+        color: #ff3366;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    /* Animated names */
+    #names {
+        font-size: 26px;
+        color: #cc0066;
+        margin-bottom: 15px;
+        animation: pulse 1.5s infinite;
+        text-shadow: 0 0 10px rgba(255, 0, 100, 0.6);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+
+    #cartoonImg {
+        max-width: 90%;
+        width: 280px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Mobile perfect */
+    @media (max-width: 600px) {
+        #question { font-size: 26px; }
+        button { font-size: 16px; padding: 12px 22px; }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b0b9b8b45.mp3" type="audio/mpeg">
+</audio>
+
+<div id="question">Will you be my Valentine? 💘</div>
+
+<div id="container">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+</div>
+
+<div id="loveScreen">
+    <h1>I knew you would say YES 💖</h1>
+    <div id="names">Samraat ❤️ Riha</div>
+    <img id="cartoonImg" src="https://i.imgur.com/4AiXzf8.png" alt="Cute Couple">
+</div>
+
+<script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const container = document.getElementById("container");
+    const loveScreen = document.getElementById("loveScreen");
+    const question = document.getElementById("question");
+    const music = document.getElementById("bgMusic");
+
+    // Start music on first interaction
+    document.body.addEventListener("click", () => {
+        music.play();
+    }, { once: true });
+
+    // NO button runs away
+    function moveNoButton() {
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 120);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    // YES click
+    yesBtn.addEventListener("click", () => {
+        container.style.display = "none";
+        question.style.display = "none";
+        loveScreen.style.display = "flex";
+        launchConfetti();
+    });
+
+    // Floating hearts
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 300);
+
+    // Confetti blast
+    function launchConfetti() {
+        for (let i = 0; i < 120; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor =
+                `hsl(${Math.random() * 360}, 100%, 60%)`;
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+</script>
+
+</body>
+</html>
