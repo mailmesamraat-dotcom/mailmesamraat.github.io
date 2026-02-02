@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(#ffb6c1, #ffc0cb);
+        font-family: 'Comic Sans MS', cursive;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Floating hearts */
+    .heart {
+        position: absolute;
+        color: rgba(255, 0, 100, 0.6);
+        animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(100vh) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-10vh) scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    #question {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        color: #b30059;
+        font-weight: bold;
+    }
+
+    #container {
+        text-align: center;
+    }
+
+    button {
+        padding: 14px 26px;
+        font-size: 18px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    #yesBtn {
+        background: #ff4d88;
+        color: white;
+        margin-right: 12px;
+    }
+
+    #noBtn {
+        background: #ff99bb;
+        color: white;
+        position: absolute;
+    }
+
+    /* Love screen */
+    #loveScreen {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #loveScreen h1 {
+        color: #ff3366;
+        font-size: 26px;
+        margin-bottom: 10px;
+    }
+
+    #names {
+        font-size: 22px;
+        color: #cc0066;
+        margin-bottom: 15px;
+    }
+
+    #cartoonImg {
+        max-width: 90%;
+        width: 280px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 600px) {
+        button {
+            font-size: 16px;
+            padding: 12px 22px;
+        }
+        #question {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b0b9b8b45.mp3" type="audio/mpeg">
+</audio>
+
+<div id="question">Will you be my Valentine? 💘</div>
+
+<div id="container">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+</div>
+
+<div id="loveScreen">
+    <h1>I knew you would say YES 💖</h1>
+    <div id="names">Samraat ❤️ Riha</div>
+    <img id="cartoonImg" src="https://i.imgur.com/4AiXzf8.png" alt="Cute Couple">
+</div>
+
+<script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const container = document.getElementById("container");
+    const loveScreen = document.getElementById("loveScreen");
+    const question = document.getElementById("question");
+    const music = document.getElementById("bgMusic");
+
+    // Start music on first interaction (mobile safe)
+    document.body.addEventListener("click", () => {
+        music.play();
+    }, { once: true });
+
+    // NO button runs away
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    function moveNoButton() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    }
+
+    // YES click
+    yesBtn.addEventListener("click", () => {
+        container.style.display = "none";
+        question.style.display = "none";
+        loveScreen.style.display = "flex";
+    });
+
+    // Floating hearts
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
