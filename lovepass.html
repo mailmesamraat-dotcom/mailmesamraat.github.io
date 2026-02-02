@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(#ffb6c1,#ffc0cb);
+    font-family:'Comic Sans MS',cursive;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* LOCK SCREEN */
+#lockScreen{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(#ff9acb,#ffb6c1);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#lockScreen h1{
+    color:#b30059;
+    margin-bottom:15px;
+}
+
+#lockScreen input{
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    font-size:16px;
+    text-align:center;
+    outline:none;
+}
+
+#lockScreen button{
+    margin-top:12px;
+    padding:10px 22px;
+    border:none;
+    border-radius:12px;
+    background:#ff4d88;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#error{
+    color:#800040;
+    margin-top:10px;
+    font-size:14px;
+}
+
+/* Question */
+#question{
+    position:absolute;
+    top:20px;
+    left:20px;
+    font-size:36px;
+    color:#b30059;
+    font-weight:bold;
+}
+
+/* Buttons */
+#container{text-align:center;}
+
+button{
+    padding:14px 26px;
+    font-size:18px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+}
+
+#yesBtn{
+    background:#ff4d88;
+    color:white;
+}
+
+#noBtn{
+    background:#ff99bb;
+    color:white;
+    position:absolute;
+}
+
+/* Love screen */
+#loveScreen{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+#loveScreen h1{
+    color:#ff3366;
+    font-size:28px;
+}
+
+#names{
+    font-size:26px;
+    color:#cc0066;
+    margin:10px 0;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+#message{
+    font-size:18px;
+    color:#660033;
+    max-width:90%;
+    margin-top:15px;
+    min-height:120px;
+}
+
+#finalLine{
+    opacity:0;
+    margin-top:20px;
+    font-size:20px;
+    color:#99004d;
+    transition:opacity 3s ease;
+}
+
+/* Hearts */
+.heart{
+    position:absolute;
+    animation:floatUp 6s linear infinite;
+    opacity:0.6;
+}
+@keyframes floatUp{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+/* Sparkles */
+.sparkle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    opacity:0.5;
+    animation:sparkle 4s infinite;
+}
+@keyframes sparkle{
+    0%{transform:scale(0);opacity:0;}
+    50%{transform:scale(1);opacity:0.8;}
+    100%{transform:scale(0);opacity:0;}
+}
+
+/* Confetti */
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    animation:fall 3s linear infinite;
+}
+@keyframes fall{
+    0%{transform:translateY(-10vh);}
+    100%{transform:translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+    <h1>🔐 Enter the secret password</h1>
+    <input type="password" id="password" placeholder="Hint: cute name 💖">
+    <button onclick="checkPassword()">Unlock 💘</button>
+    <div id="error"></div>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7b0b9b8b45.mp3">
+</audio>
+
+<audio id="heartbeat">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/09/audio_3b7a6a0c3d.mp3">
+</audio>
+
+<div id="question">Will you be my Valentine?</div>
+
+<div id="container">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+</div>
+
+<div id="loveScreen">
+    <h1>I knew you would say YES 💖</h1>
+    <div id="names">Samraat ❤️ Riha</div>
+    <div id="message"></div>
+    <div id="finalLine">Always yours – Samraat</div>
+</div>
+
+<script>
+/* PASSWORD */
+const CORRECT_PASSWORD = "bebu";
+
+function checkPassword(){
+    const input = document.getElementById("password").value.toLowerCase();
+    const error = document.getElementById("error");
+    if(input === CORRECT_PASSWORD){
+        document.getElementById("lockScreen").style.display="none";
+    }else{
+        error.innerText="Wrong password 😝 Try again!";
+    }
+}
+
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const container=document.getElementById("container");
+const loveScreen=document.getElementById("loveScreen");
+const question=document.getElementById("question");
+const messageDiv=document.getElementById("message");
+const finalLine=document.getElementById("finalLine");
+const music=document.getElementById("bgMusic");
+const heartbeat=document.getElementById("heartbeat");
+
+document.body.addEventListener("click",()=>music.play(),{once:true});
+
+noBtn.addEventListener("mouseover",()=>{
+    noBtn.style.left=Math.random()*window.innerWidth+"px";
+    noBtn.style.top=Math.random()*window.innerHeight+"px";
+});
+
+yesBtn.addEventListener("click",()=>{
+    container.style.display="none";
+    question.style.display="none";
+    loveScreen.style.display="flex";
+    heartbeat.play();
+    confettiBlast();
+    typeText();
+});
+
+/* Typewriter */
+const text="I love you so much bebuuu... Ik things are going very bad in our rln... bt i trust us... sab theek hojaayega... muwahhh...";
+let i=0;
+function typeText(){
+    if(i<text.length){
+        messageDiv.innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(typeText,60);
+    }else{
+        finalLine.style.opacity=1;
+    }
+}
+
+/* Hearts */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=Math.random()*20+15+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+},300);
+
+/* Sparkles */
+setInterval(()=>{
+    const s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=Math.random()*100+"vw";
+    s.style.top=Math.random()*100+"vh";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),4000);
+},200);
+
+/* Confetti */
+function confettiBlast(){
+    for(let i=0;i<80;i++){
+        const c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
+    }
+}
+</script>
+
+</body>
+</html>
