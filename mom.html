@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Best Mom</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Pacifico', cursive;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Slide 1 */
+    #slide1 {
+      background-color: #e63946;
+      color: white;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 50px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 40px;
+    }
+
+    button {
+      padding: 15px 40px;
+      font-size: 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #2a9d8f;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #f1faee;
+      color: #333;
+    }
+
+    /* Slide 2 */
+    #slide2 {
+      background-color: #1d3557;
+      color: #f1faee;
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1 -->
+  <div class="slide active" id="slide1">
+    <h1>r u the best mom in the world?</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide" id="slide2">
+    <h1>ofcourse you are the best mom in the multiverse 💖</h1>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const slide1 = document.getElementById("slide1");
+    const slide2 = document.getElementById("slide2");
+
+    let yesScale = 1;
+    let noScale = 1;
+
+    noBtn.addEventListener("click", () => {
+      yesScale += 0.1;
+      noScale -= 0.1;
+
+      if (noScale < 0.4) noScale = 0.4;
+
+      yesBtn.style.transform = `scale(${yesScale})`;
+      noBtn.style.transform = `scale(${noScale})`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+      slide1.classList.remove("active");
+      slide2.classList.add("active");
+    });
+  </script>
+
+</body>
+</html>
